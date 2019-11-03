@@ -1,0 +1,60 @@
+unit uSubstitui;
+
+interface
+
+uses
+  uISubstitui, SysUtils ;
+
+type
+
+  TSubstitui = class(TInterfacedObject, ISubstitui)
+  public
+    function Substituir(aStr, aVelho, aNovo: String): String;
+  end;
+
+implementation
+
+function TSubstitui.Substituir(aStr, aVelho, aNovo: String): String;
+var
+  I, J, LenArr, LenOld : integer;
+  Str, Resultado : string;
+  StrArray : TArray<Char>;
+begin
+  StrArray  := aStr.ToCharArray;
+  SetLength(LenArr,strArray);
+  Str       := '';
+  J         := 0;
+  LenOld    := Length(aVelho);
+  Resultado := '';
+
+  for I := 0 to LenArr -1 do
+  begin
+    Str :=  Str +  StrArray[i];
+
+    if (LenOld = J) then
+    begin
+      if (Str = aVelho) then
+      begin
+        Str       := aNovo;
+      end;
+      J         := 0;
+      Resultado := Resultado + Str;
+      Str       := '';
+    end
+    else if (i = LenArr -1) then
+    begin
+      J         := 0;
+      Resultado := Resultado + Str;
+      Str       := '';
+    end
+    else
+    begin
+      J         := J +1;
+    end;
+  end;
+
+  result := Resultado;
+end;
+  
+end.
+
